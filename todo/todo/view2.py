@@ -12,6 +12,7 @@ from .model1 import TODOO
 from .model3 import UserProfile
 
 
+
 def _get_or_create_profile(user):
     profile, _ = UserProfile.objects.get_or_create(user=user)
     return profile
