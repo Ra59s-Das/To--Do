@@ -14,5 +14,7 @@
 from .model1 import TODOO
 from .model2 import SubTask
 from .model3 import UserProfile
-
-__all__ = ["TODOO", "SubTask", "UserProfile"]
+from .model4 import TaskHistory
+ 
+__all__ = ["TODOO", "SubTask", "UserProfile", "TaskHistory"]
+ 
