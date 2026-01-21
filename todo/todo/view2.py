@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .model1 import TODOO
 from .model3 import UserProfile
+from .view7 import record_task_completion
 
 
 
@@ -169,3 +170,4 @@ def clear_completed(request):
     if request.method == "POST":
         TODOO.objects.filter(user=request.user, completed=True).delete()
     return redirect("todo")
+
