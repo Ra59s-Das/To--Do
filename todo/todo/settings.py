@@ -118,3 +118,55 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 LOGIN_URL = '/login/'
+
+
+
+
+# ── 2. Authentication backends ───────────────────────────────────
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',   # Google OAuth
+    'django.contrib.auth.backends.ModelBackend',  # normal username/password
+]
+
+
+# ── 3. Google OAuth credentials ──────────────────────────────────
+#  Get these from https://console.cloud.google.com/
+#  → APIs & Services → Credentials → Create OAuth 2.0 Client ID
+#  Authorised redirect URI: http://127.0.0.1:8000/auth/complete/google-oauth2/
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = 'YOUR_GOOGLE_CLIENT_ID_HERE'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'YOUR_GOOGLE_CLIENT_SECRET_HERE'
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL    = '/todo/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/todo/'
+SOCIAL_AUTH_LOGIN_ERROR_URL       = '/login/'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'todo.view6.create_profile_for_google_user',   # creates UserProfile for streak
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+
+# ── 4. Add context processors to TEMPLATES ───────────────────────
+#  Find the TEMPLATES list in settings.py and inside
+#  OPTIONS > context_processors, add these two lines:
+#
+#  'social_django.context_processors.backends',
+#  'social_django.context_processors.login_redirect',
+
+
+# ── 5. API Keys ───────────────────────────────────────────────────
+ANTHROPIC_API_KEY = 'sk-ant-YOUR_KEY_HERE'   # for view5 (AI suggest) + view8 (voice)
+OPENAI_API_KEY    = 'sk-YOUR_OPENAI_KEY_HERE' # for view8 (Whisper transcription)
+
+
+# ── 6. File upload size (for voice recordings) ───────────────────
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024   # 10 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024   # 10 MB
