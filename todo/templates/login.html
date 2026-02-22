@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doable — Sign Up</title>
+  <title>Sign In — Doable</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { overflow: hidden; height: 100%; }
@@ -11,7 +14,7 @@
     .shell {
       height: 100vh; width: 100vw;
       display: flex; overflow: hidden;
-      background: #07070f;
+      background: #0a0a0a;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       position: relative;
       color-scheme: dark;
@@ -20,175 +23,170 @@
     /* ── Background ── */
     .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 
-    .orb {
-      position: absolute; border-radius: 50%;
-      filter: blur(110px); will-change: transform;
-    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(130px); will-change: transform; }
     .orb-a {
-      width: 700px; height: 700px; top: -200px; left: -160px;
-      background: radial-gradient(circle, rgba(157, 130, 20, 0.13) 0%, transparent 60%);
-      animation: oa 18s ease-in-out infinite;
+      width: 800px; height: 800px; top: -220px; left: -180px;
+      background: radial-gradient(circle, rgba(160,160,160,0.07) 0%, transparent 65%);
+      animation: oa 22s ease-in-out infinite;
     }
     .orb-b {
-      width: 580px; height: 580px; bottom: -160px; right: -100px;
-      background: radial-gradient(circle, rgba(105, 40, 149, 0.16) 0%, transparent 60%);
-      animation: ob 22s ease-in-out infinite;
+      width: 620px; height: 620px; bottom: -190px; right: -130px;
+      background: radial-gradient(circle, rgba(120,120,120,0.055) 0%, transparent 65%);
+      animation: ob 26s ease-in-out infinite;
     }
     .orb-c {
-      width: 380px; height: 380px; top: 40%; left: 40%;
-      background: radial-gradient(circle, rgba(160, 127, 42, 0.06) 0%, transparent 60%);
-      animation: oc 26s ease-in-out infinite;
+      width: 500px; height: 500px; top: 40%; left: 36%;
+      background: radial-gradient(circle, rgba(200,200,200,0.03) 0%, transparent 65%);
+      animation: oc 30s ease-in-out infinite;
     }
-    @keyframes oa { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,30px) scale(1.07)} }
-    @keyframes ob { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-30px,-40px) scale(1.06)} }
-    @keyframes oc { 0%,100%{transform:translate(0,0)} 40%{transform:translate(20px,-24px)} 80%{transform:translate(-16px,14px)} }
+    .orb-d {
+      width: 380px; height: 380px; top: 5%; right: 22%;
+      background: radial-gradient(circle, rgba(100,100,100,0.045) 0%, transparent 65%);
+      animation: od 34s ease-in-out infinite;
+    }
+    @keyframes oa { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(45px,30px) scale(1.05)} }
+    @keyframes ob { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-35px,-40px) scale(1.06)} }
+    @keyframes oc { 0%,100%{transform:translate(0,0)} 40%{transform:translate(20px,-22px)} 80%{transform:translate(-15px,14px)} }
+    @keyframes od { 0%,100%{transform:translate(0,0)} 60%{transform:translate(-18px,26px)} }
 
     .noise {
       position: absolute; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.018;
+      opacity: 0.028;
     }
     .grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 15%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 15%, transparent 100%);
     }
 
     /* ══ LEFT PANEL ══ */
     .left {
       position: relative; z-index: 1;
-      width: 54%; min-width: 0;
+      width: 52%; min-width: 0;
       display: none; flex-direction: column;
       justify-content: space-between;
-      padding: 32px 44px;
-      border-right: 1px solid rgba(162, 129, 39, 0.07);
+      padding: 40px 52px;
+      border-right: 1px solid rgba(255,255,255,0.04);
     }
     @media (min-width: 1024px) { .left { display: flex; } }
 
     /* Logo */
-    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo { display: flex; align-items: center; gap: 11px; }
     .logo-icon {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: linear-gradient(135deg, #c9a227 0%, #7a5500 100%);
+      width: 38px; height: 38px; border-radius: 11px;
+      background: linear-gradient(135deg, #e0e0e0 0%, #888 50%, #2a2a2a 100%);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 1px rgba(212,175,55,0.3), 0 4px 20px rgba(201,162,39,0.4);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 4px 24px rgba(0,0,0,0.55);
     }
-    .logo-name { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; color: #fff; }
+    .logo-name {
+      font-size: 19px; font-weight: 800; letter-spacing: -0.5px;
+      background: linear-gradient(110deg, #f0f0f0 0%, #b0b0b0 55%, #686868 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
     /* Hero */
     .hero { flex: 0 0 auto; }
     .pill {
       display: inline-flex; align-items: center; gap: 7px;
-      padding: 4px 12px; border-radius: 999px; margin-bottom: 16px;
-      background: rgba(212,175,55,0.07);
-      border: 1px solid rgba(212,175,55,0.16);
-      color: #e8c97e; font-size: 10px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #909090; font-size: 10px; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
     }
     .pill-dot {
       width: 5px; height: 5px; border-radius: 50%;
-      background: #d4af37; box-shadow: 0 0 6px #d4af37;
+      background: #aaa; box-shadow: 0 0 8px rgba(180,180,180,0.8);
       animation: pulse 2s ease-in-out infinite;
     }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
 
     .h1 {
-      font-size: clamp(2rem, 3.2vw, 2.7rem);
-      font-weight: 900; color: #fff;
-      line-height: 1.07; letter-spacing: -1.2px;
-      margin-bottom: 14px;
+      font-size: clamp(1.9rem, 3vw, 2.75rem);
+      font-weight: 900; color: #e8e8e8;
+      line-height: 1.08; letter-spacing: -1.2px;
+      margin-bottom: 18px;
     }
-    .gold-text {
-      background: linear-gradient(100deg, #c9a227 0%, #f5d878 45%, #9a6f00 75%, #e8c97e 100%);
-      background-size: 200% auto;
+    .platinum-text {
+      background: linear-gradient(110deg, #d0d0d0 0%, #ffffff 22%, #9a9a9a 46%, #e8e8e8 66%, #c0c0c0 80%, #f8f8f8 96%);
+      background-size: 220% auto;
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: shimmer 3.5s linear infinite;
+      animation: shimmer 4s linear infinite;
     }
-    @keyframes shimmer { to { background-position: 200% center; } }
+    @keyframes shimmer { to { background-position: 220% center; } }
 
     .sub {
-      color: rgba(255,255,255,0.32); font-size: 13px; line-height: 1.65;
-      max-width: 340px;
+      color: rgba(200,200,200,0.32); font-size: 13.5px; line-height: 1.75;
+      max-width: 360px; margin-bottom: 32px;
     }
 
-    /* Preview card */
-    .preview {
-      background: rgba(255,255,255,0.022);
-      border: 1px solid rgba(212,175,55,0.09);
-      border-radius: 16px; padding: 16px 18px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
-      flex: 0 0 auto;
+    /* Testimonial */
+    .testimonial {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.055);
+      border-radius: 16px; padding: 20px 22px;
+      margin-bottom: 30px;
     }
-    .pv-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-    .pv-title-row { display: flex; align-items: center; gap: 7px; }
-    .pv-pulse {
-      width: 6px; height: 6px; border-radius: 50%; background: #d4af37;
-      box-shadow: 0 0 8px rgba(212,175,55,0.7);
-      animation: pulse 1.8s ease-in-out infinite;
+    .quote-mark {
+      font-size: 28px; font-weight: 900; line-height: 1;
+      color: rgba(200,200,200,0.14); margin-bottom: 6px;
+      font-family: Georgia, serif;
     }
-    .pv-title { color: #e2e2e2; font-size: 12.5px; font-weight: 600; }
-    .pv-badge {
-      padding: 2px 8px; border-radius: 99px;
-      background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2);
-      color: #e8c97e; font-size: 10.5px; font-weight: 700;
+    .quote-text {
+      font-size: 13px; color: rgba(200,200,200,0.48); line-height: 1.65;
+      font-style: italic; margin-bottom: 14px;
     }
+    .quote-author { display: flex; align-items: center; gap: 10px; }
+    .quote-av {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff; flex-shrink: 0;
+    }
+    .quote-name { font-size: 11.5px; font-weight: 700; color: rgba(220,220,220,0.52); }
+    .quote-role { font-size: 10px; color: rgba(160,160,160,0.28); margin-top: 1px; }
+    .stars { display: flex; gap: 2px; margin-left: auto; }
+    .star { color: rgba(200,200,200,0.28); font-size: 12px; }
 
-    .prog-track { height: 3px; background: rgba(255,255,255,0.05); border-radius: 3px; margin-bottom: 13px; overflow: hidden; }
-    .prog-fill   { height: 100%; border-radius: 3px; width: 60%; background: linear-gradient(90deg, #a0780a, #f5d878); box-shadow: 0 0 10px rgba(212,175,55,0.5); }
-
-    .tasks { display: flex; flex-direction: column; gap: 5px; }
-    .task {
-      display: flex; align-items: center; gap: 9px;
-      padding: 6px 7px; border-radius: 8px;
-      transition: background .2s;
+    /* Activity feed */
+    .activity { display: flex; flex-direction: column; gap: 2px; margin-bottom: 0; }
+    .activity-head {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .09em; color: rgba(160,160,160,0.22);
+      margin-bottom: 10px;
+    }
+    .act-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.035);
       animation: si .35s ease both;
     }
-    .task:hover { background: rgba(255,255,255,0.025); }
+    .act-item:last-child { border-bottom: none; }
     @keyframes si { from{opacity:0;transform:translateX(-5px)} to{opacity:1;transform:none} }
-
-    .task-check {
-      width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid;
-      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-      transition: all .2s;
-    }
-    .task-lbl {
-      flex: 1; font-size: 12px; color: rgba(255,255,255,.8);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .task-tag {
-      font-size: 9.5px; font-weight: 700; padding: 1.5px 6px;
-      border-radius: 4px; border: 1px solid; letter-spacing: .04em; text-transform: uppercase;
-      flex-shrink: 0;
-    }
-
-    .pv-foot {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 12px; padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-    .avatars { display: flex; align-items: center; }
-    .av {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 1.5px solid #0c0c18;
+    .act-av {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 7.5px; font-weight: 800; color: #fff;
-      margin-left: -5px; flex-shrink: 0;
+      font-size: 8.5px; font-weight: 800; color: #fff;
     }
-    .av:first-child { margin-left: 0; }
-    .av-label { color: rgba(255,255,255,0.28); font-size: 10.5px; margin-left: 8px; }
-    .live-chip { color: #4ade80; font-size: 10px; font-weight: 700; letter-spacing: .04em; animation: pulse 2s infinite; }
+    .act-text { flex: 1; font-size: 11.5px; color: rgba(190,190,190,0.36); line-height: 1.4; }
+    .act-text strong { color: rgba(200,200,200,0.62); font-weight: 600; }
+    .act-time { font-size: 9.5px; color: rgba(160,160,160,0.2); font-weight: 500; }
 
     /* Stats */
-    .stats { display: flex; gap: 24px; }
+    .stats { display: flex; gap: 28px; }
     .stat { display: flex; flex-direction: column; gap: 2px; }
-    .stat-v { font-size: 15px; font-weight: 800; color: #e8c97e; letter-spacing: -0.5px; }
-    .stat-l { font-size: 9.5px; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: rgba(255,255,255,0.22); }
+    .stat-v {
+      font-size: 15px; font-weight: 800; letter-spacing: -0.4px;
+      background: linear-gradient(110deg, #c0c0c0 0%, #f0f0f0 50%, #888 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-l { font-size: 9.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: rgba(180,180,180,0.2); }
 
     /* ══ RIGHT PANEL ══ */
     .right {
@@ -196,303 +194,329 @@
       flex: 1; display: flex;
       align-items: center; justify-content: center;
       padding: 16px;
+      overflow-y: auto;
     }
 
     /* Card */
     .card {
-      width: 100%; max-width: 388px;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.075);
-      border-radius: 20px; padding: 24px 22px;
-      backdrop-filter: blur(32px);
+      width: 100%; max-width: 380px;
+      background: rgba(255,255,255,0.018);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 22px; padding: 28px 26px;
+      backdrop-filter: blur(36px);
       box-shadow:
-        0 0 0 1px rgba(212,175,55,0.055),
-        0 28px 80px rgba(0,0,0,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-      transition: opacity 0.55s ease 0.15s, transform 0.55s ease 0.15s;
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 30px 90px rgba(0,0,0,0.7),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      margin: auto;
     }
 
-    .card-hd  { margin-bottom: 16px; }
-    .card-title { color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 3px; }
-    .card-desc  { color: rgba(255,255,255,0.28); font-size: 12px; }
+    .card-hd  { margin-bottom: 20px; }
+    .card-eyebrow {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: rgba(180,180,180,0.45);
+      margin-bottom: 5px;
+    }
+    .card-title {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px;
+      background: linear-gradient(110deg, #f0f0f0 0%, #c8c8c8 55%, #888 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .card-desc  { color: rgba(180,180,180,0.28); font-size: 12px; line-height: 1.55; }
 
     /* Socials */
-    .socials { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .socials { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
     .social-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 9px 14px; border-radius: 10px; width: 100%;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.035);
-      color: rgba(255,255,255,0.7); font-size: 12.5px; font-weight: 500;
-      cursor: pointer; font-family: inherit; transition: all .17s;
+      padding: 10px 14px; border-radius: 11px; width: 100%;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.025);
+      color: rgba(200,200,200,0.48); font-size: 12.5px; font-weight: 500;
+      cursor: pointer; font-family: inherit; transition: all .18s;
     }
     .social-btn:hover {
-      background: rgba(255,255,255,0.07); border-color: rgba(212,175,55,0.22);
-      transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.055); border-color: rgba(255,255,255,0.11);
+      transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,0,0,0.45);
+      color: rgba(240,240,240,0.75);
     }
     .social-btn:active { transform: translateY(0); }
 
     /* Divider */
-    .divider { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; }
-    .div-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
-    .div-text  { color: rgba(255,255,255,0.18); font-size: 10.5px; white-space: nowrap; font-weight: 500; }
+    .divider { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .div-line { flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+    .div-text  { color: rgba(180,180,180,0.2); font-size: 10.5px; white-space: nowrap; font-weight: 500; }
 
     /* Form */
-    .form      { display: flex; flex-direction: column; gap: 10px; }
-    .name-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .form { display: flex; flex-direction: column; gap: 12px; }
 
     /* Field */
     .field { display: flex; flex-direction: column; gap: 4px; }
     .flbl  {
       font-size: 10px; font-weight: 700; text-transform: uppercase;
       letter-spacing: .09em; transition: color .17s;
-      color: rgba(255,255,255,0.35);
+      color: rgba(180,180,180,0.28);
     }
+    .flbl.focused { color: #c0c0c0; }
+    .flbl.errored { color: #d07070; }
+
     .finput-wrap { position: relative; }
     .ficon {
-      position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
-      pointer-events: none; transition: color .17s; line-height: 1;
-      color: rgba(255,255,255,0.2);
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; transition: color .17s;
+      color: rgba(180,180,180,0.2);
     }
-    .fsuffix { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); line-height: 1; }
+    .fsuffix { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); }
 
     .finput {
-      width: 100%; padding: 8.5px 11px;
-      border-radius: 9px; border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: #fff; font-size: 12.5px; font-family: inherit;
-      outline: none; transition: all .17s;
+      width: 100%; padding: 10px 13px;
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.065);
+      background: rgba(255,255,255,0.025);
+      color: #d8d8d8; font-size: 12.5px; font-family: inherit;
+      outline: none; transition: all .18s;
     }
-    .finput::placeholder { color: rgba(255,255,255,0.14); }
+    .finput::placeholder { color: rgba(180,180,180,0.16); }
     .finput:focus {
-      border-color: rgba(212,175,55,0.5);
-      background: rgba(212,175,55,0.04);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.09), inset 0 1px 0 rgba(255,255,255,0.03);
+      border-color: rgba(200,200,200,0.3);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 0 0 3px rgba(200,200,200,0.055), inset 0 1px 0 rgba(255,255,255,0.02);
     }
     .finput.has-error {
-      border-color: rgba(248,113,113,0.5);
-      background: rgba(248,113,113,0.06);
-      box-shadow: 0 0 0 3px rgba(248,113,113,0.08);
+      border-color: rgba(210,90,90,0.42);
+      background: rgba(210,90,90,0.04);
+      box-shadow: 0 0 0 3px rgba(210,90,90,0.065);
     }
 
     .ferr {
       display: flex; align-items: center; gap: 4px;
-      color: #f87171; font-size: 10px; margin-top: 1px;
+      color: #c07878; font-size: 10px; margin-top: 1px;
+      animation: fd .18s ease;
     }
+    @keyframes fd { from{opacity:0;transform:translateY(-2px)} to{opacity:1;transform:none} }
 
-    /* Eye */
+    /* Eye button */
     .eye-btn {
       background: none; border: none; cursor: pointer; padding: 3px;
-      color: rgba(255,255,255,0.2); transition: color .17s; line-height: 1;
+      color: rgba(180,180,180,0.22); transition: color .17s; line-height: 1;
+      display: flex; align-items: center;
     }
-    .eye-btn:hover { color: rgba(255,255,255,0.55); }
+    .eye-btn:hover { color: rgba(220,220,220,0.55); }
 
-    /* Password strength */
-    .strength { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
-    .str-bars  { display: flex; gap: 4px; flex: 1; }
-    .str-bar   { height: 3px; flex: 1; border-radius: 3px; background: rgba(255,255,255,0.05); transition: background .3s, box-shadow .3s; }
+    /* Forgot password */
+    .field-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
+    .forgot { font-size: 10.5px; color: rgba(180,180,180,0.38); font-weight: 500; text-decoration: none; transition: color .17s; }
+    .forgot:hover { color: rgba(220,220,220,0.68); }
 
-    /* Terms */
-    .terms { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; user-select: none; }
+    /* Remember me */
+    .remember { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
     .chk {
-      width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.1);
-      flex-shrink: 0; margin-top: 1px;
+      width: 14px; height: 14px; border-radius: 3.5px; border: 1.5px solid rgba(255,255,255,0.09);
+      flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      transition: all .17s; cursor: pointer;
-      background: rgba(255,255,255,0.03);
+      transition: all .18s; cursor: pointer;
+      background: rgba(255,255,255,0.025);
     }
     .chk.checked {
-      background: linear-gradient(135deg,#d4af37,#a0780a);
-      border-color: #d4af37;
-      box-shadow: 0 0 14px rgba(212,175,55,0.35);
+      background: linear-gradient(135deg, #686868 0%, #303030 100%);
+      border-color: #888;
+      box-shadow: 0 0 12px rgba(160,160,160,0.22);
     }
-    .terms-txt { font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.55; }
-    .link { color: #d4af37; text-decoration: none; transition: color .17s; }
-    .link:hover { color: #f5d878; }
+    .remember-txt { font-size: 11px; color: rgba(180,180,180,0.28); }
+
+    .link { color: #aaa; text-decoration: none; transition: color .17s; }
+    .link:hover { color: #ddd; }
     .fw6 { font-weight: 600; }
 
     /* CTA button */
     .cta {
-      width: 100%; padding: 11.5px;
-      border: none; border-radius: 11px; cursor: pointer;
+      width: 100%; padding: 12.5px;
+      border: none; border-radius: 12px; cursor: pointer;
       font-size: 13px; font-weight: 700; font-family: inherit;
-      color: #05050d; letter-spacing: 0.01em;
-      background: linear-gradient(135deg, #d4af37 0%, #f7e070 50%, #b8860b 100%);
+      letter-spacing: 0.015em;
+      color: #f0f0f0;
+      background: linear-gradient(135deg, #1c1c1c 0%, #3a3a3a 30%, #606060 60%, #1c1c1c 100%);
+      background-size: 200% auto;
+      animation: cta-shift 5s linear infinite;
       box-shadow:
-        0 0 0 1px rgba(212,175,55,0.35),
-        0 6px 26px rgba(180,140,30,0.4),
-        inset 0 1px 0 rgba(255,255,255,0.25);
-      transition: all .18s; position: relative; overflow: hidden;
+        0 0 0 1px rgba(255,255,255,0.1),
+        0 8px 32px rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: box-shadow .2s, transform .18s; position: relative; overflow: hidden;
     }
+    @keyframes cta-shift { to { background-position: 200% center; } }
     .cta::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.12), transparent);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
       border-radius: inherit; pointer-events: none;
     }
     .cta:hover:not(:disabled) {
       transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(212,175,55,0.45), 0 12px 36px rgba(180,140,30,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 14px 44px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.16);
     }
     .cta:active:not(:disabled) { transform: scale(0.99); }
-    .cta:disabled { opacity: .5; cursor: not-allowed; }
+    .cta:disabled { opacity: .42; cursor: not-allowed; animation: none; }
 
     .cta-loading { display: flex; align-items: center; justify-content: center; gap: 8px; }
     .spinner {
       width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid rgba(0,0,0,0.15);
-      border-top-color: #05050d;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: #e8e8e8;
       animation: spin .65s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Sign in */
-    .signin { text-align: center; font-size: 11.5px; color: rgba(255,255,255,0.22); margin-top: 14px; }
+    .signup { text-align: center; font-size: 11.5px; color: rgba(180,180,180,0.2); margin-top: 16px; }
+
+    /* Trust badges */
+    .trust {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 9.5px; font-weight: 600; color: rgba(160,160,160,0.22);
+      letter-spacing: .03em;
+    }
 
     /* Success */
     .success {
       display: flex; flex-direction: column;
       align-items: center; text-align: center;
-      gap: 10px; padding: 24px 8px;
+      gap: 12px; padding: 28px 8px;
     }
     .success-ring {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(74,222,128,0.08);
-      border: 1px solid rgba(74,222,128,0.2);
+      width: 66px; height: 66px; border-radius: 50%;
+      background: rgba(100,180,120,0.06);
+      border: 1px solid rgba(100,180,120,0.16);
       display: flex; align-items: center; justify-content: center;
       animation: pop .45s cubic-bezier(.34,1.56,.64,1) both;
     }
     @keyframes pop { from{transform:scale(.5);opacity:0} to{transform:scale(1);opacity:1} }
-    .suc-h { color: #fff; font-size: 20px; font-weight: 800; }
-    .suc-p { color: rgba(255,255,255,0.35); font-size: 13px; line-height: 1.6; max-width: 260px; }
-
-    @keyframes fd { from{opacity:0;transform:translateY(-2px)} to{opacity:1;transform:none} }
-
-    .hidden { display: none !important; }
+    .suc-h {
+      font-size: 21px; font-weight: 800;
+      background: linear-gradient(110deg, #f0f0f0 0%, #c8c8c8 55%, #888 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .suc-p { color: rgba(180,180,180,0.32); font-size: 13px; line-height: 1.65; max-width: 260px; }
+    .suc-btn {
+      margin-top: 6px; padding: 10px 26px;
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: #b0b0b0; font-size: 12.5px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: all .18s;
+    }
+    .suc-btn:hover { background: rgba(255,255,255,0.08); color: #d8d8d8; }
   </style>
 </head>
 <body>
 
 <div class="shell">
-
   <!-- Ambient background -->
   <div class="bg">
     <div class="orb orb-a"></div>
     <div class="orb orb-b"></div>
     <div class="orb orb-c"></div>
+    <div class="orb orb-d"></div>
     <div class="noise"></div>
     <div class="grid"></div>
   </div>
 
   <!-- LEFT PANEL -->
   <aside class="left">
-
     <!-- Logo -->
     <div class="logo">
       <div class="logo-icon">
         <svg viewBox="0 0 22 22" fill="none" width="16" height="16">
           <polygon points="11,2 20,7.5 20,14.5 11,20 2,14.5 2,7.5" stroke="white" stroke-width="1.7" stroke-linejoin="round"/>
-          <polygon points="11,2 20,7.5 11,13 2,7.5" stroke="white" stroke-width="1.2" stroke-linejoin="round" opacity=".5" fill="rgba(255,255,255,0.05)"/>
+          <polygon points="11,2 20,7.5 11,13 2,7.5" stroke="white" stroke-width="1.2" stroke-linejoin="round" opacity=".5" fill="rgba(255,255,255,0.06)"/>
           <line x1="11" y1="13" x2="11" y2="20" stroke="white" stroke-width="1.2" opacity=".5"/>
         </svg>
       </div>
       <span class="logo-name">Doable</span>
     </div>
 
-    <!-- Headline block -->
+    <!-- Headline -->
     <div class="hero">
       <div class="pill">
         <span class="pill-dot"></span>
-        <!-- Trusted by 50,000+ teams -->
+        Welcome back
       </div>
       <h1 class="h1">
-        Ship faster,<br>
-        <span class="gold-text">stay aligned.</span>
+        Good to have<br />
+        <span class="platinum-text">you back.</span>
       </h1>
       <p class="sub">
-        The premium command center for modern teams — plan, prioritize, and deliver with clarity.
+        Your workspace is exactly where you left it. Your team is already moving — jump back in and keep building what matters.
       </p>
-    </div>
 
-    <!-- Dashboard preview card -->
-    <div class="preview">
-      <div class="pv-head">
-        <div class="pv-title-row">
-          <span class="pv-pulse"></span>
-          <span class="pv-title">Active Sprint · Q2</span>
-        </div>
-        <span class="pv-badge">3/5</span>
-      </div>
-
-      <div class="prog-track">
-        <div class="prog-fill"></div>
-      </div>
-
-      <div class="tasks">
-        <div class="task" style="animation-delay:0ms">
-          <div class="task-check" style="background:#a78bfa;border-color:#a78bfa;box-shadow:0 0 8px #a78bfa50">
-            <svg viewBox="0 0 8 8" fill="none" width="8" height="8"><path d="M1 4l2 2 4-4" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- Testimonial -->
+      <div class="testimonial">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">Doable completely transformed how our engineering team tracks work. We ship 40% faster and our PMs actually enjoy retrospectives now.</p>
+        <div class="quote-author">
+          <div class="quote-av" style="background:linear-gradient(135deg,#404040,#606060)">S</div>
+          <div>
+            <div class="quote-name">Sarah Kim</div>
+            <div class="quote-role">VP Engineering &middot; Meridian Labs</div>
           </div>
-          <span class="task-lbl" style="opacity:0.28;text-decoration:line-through">Finalize Q2 roadmap</span>
-          <span class="task-tag" style="background:#a78bfa22;color:#a78bfa;border-color:#a78bfa44">Done</span>
-        </div>
-        <div class="task" style="animation-delay:60ms">
-          <div class="task-check" style="background:#34d399;border-color:#34d399;box-shadow:0 0 8px #34d39950">
-            <svg viewBox="0 0 8 8" fill="none" width="8" height="8"><path d="M1 4l2 2 4-4" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
           </div>
-          <span class="task-lbl" style="opacity:0.28;text-decoration:line-through">Design system audit</span>
-          <span class="task-tag" style="background:#34d39922;color:#34d399;border-color:#34d39944">Done</span>
-        </div>
-        <div class="task" style="animation-delay:120ms">
-          <div class="task-check" style="background:transparent;border-color:rgba(255,255,255,0.12)"></div>
-          <span class="task-lbl" style="opacity:0.75">API integration review</span>
-          <span class="task-tag" style="background:#60a5fa22;color:#60a5fa;border-color:#60a5fa44">Todo</span>
-        </div>
-        <div class="task" style="animation-delay:180ms">
-          <div class="task-check" style="background:transparent;border-color:rgba(255,255,255,0.12)"></div>
-          <span class="task-lbl" style="opacity:0.75">Write release notes</span>
-          <span class="task-tag" style="background:#f9a8d422;color:#f9a8d4;border-color:#f9a8d444">Todo</span>
         </div>
       </div>
 
-      <div class="pv-foot">
-        <div class="avatars">
-          <div class="av" style="background:#8b5cf6">J</div>
-          <div class="av" style="background:#0ea5e9">A</div>
-          <div class="av" style="background:#ec4899">M</div>
-          <span class="av-label">3 active now</span>
+      <!-- Activity feed -->
+      <div>
+        <p class="activity-head">Recent activity in your workspace</p>
+        <div class="activity">
+          <div class="act-item" style="animation-delay:0ms">
+            <div class="act-av" style="background:#404040">J</div>
+            <span class="act-text"><strong>James</strong> completed &ldquo;Finalize Q2 roadmap&rdquo;</span>
+            <span class="act-time">2m ago</span>
+          </div>
+          <div class="act-item" style="animation-delay:60ms">
+            <div class="act-av" style="background:#555">A</div>
+            <span class="act-text"><strong>Anika</strong> pushed 3 tasks to this sprint</span>
+            <span class="act-time">11m ago</span>
+          </div>
+          <div class="act-item" style="animation-delay:120ms">
+            <div class="act-av" style="background:#333">M</div>
+            <span class="act-text"><strong>Marcus</strong> left a comment on API review</span>
+            <span class="act-time">34m ago</span>
+          </div>
+          <div class="act-item" style="animation-delay:180ms">
+            <div class="act-av" style="background:#484848">P</div>
+            <span class="act-text"><strong>Priya</strong> shipped the design system update</span>
+            <span class="act-time">1h ago</span>
+          </div>
         </div>
-        <span class="live-chip">&#9679; Live</span>
       </div>
     </div>
 
-    <!-- Stats row -->
-    <!-- <div class="stats">
-      <div class="stat">
-        <span class="stat-v">50K+</span>
-        <span class="stat-l">Teams</span>
-      </div>
-      <div class="stat">
-        <span class="stat-v">98%</span>
-        <span class="stat-l">Satisfaction</span>
-      </div>
-      <div class="stat">
-        <span class="stat-v">99.9%</span>
-        <span class="stat-l">Uptime</span>
-      </div>
-    </div> -->
-
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><span class="stat-v">50K+</span><span class="stat-l">Teams</span></div>
+      <div class="stat"><span class="stat-v">98%</span><span class="stat-l">Satisfaction</span></div>
+      <div class="stat"><span class="stat-v">99.9%</span><span class="stat-l">Uptime</span></div>
+      <div class="stat"><span class="stat-v">4.9★</span><span class="stat-l">Rating</span></div>
+    </div>
   </aside>
 
   <!-- RIGHT PANEL -->
   <main class="right">
-    <div class="card" id="card">
-
-      <!-- Form view -->
-      <div id="formView">
+    <div class="card">
+      <!-- Default: login form -->
+      <div id="form-view">
         <div class="card-hd">
-          <h2 class="card-title">Log in</h2>
-          <p class="card-desc">Free forever &middot; no credit card required</p>
+          <p class="card-eyebrow">Sign in to your workspace</p>
+          <h2 class="card-title">Welcome back</h2>
+          <p class="card-desc">Your work, your team, your momentum — all in one place.</p>
         </div>
 
         <!-- Social buttons -->
@@ -507,277 +531,179 @@
             <span>Continue with Google</span>
           </button>
           <button type="button" class="social-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" style="flex-shrink:0;opacity:0.8">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" style="flex-shrink:0;opacity:0.6">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
             </svg>
             <span>Continue with GitHub</span>
           </button>
         </div>
 
-        <!-- Divider -->
         <div class="divider">
           <span class="div-line"></span>
-          <span class="div-text">or continue with email</span>
+          <span class="div-text">or sign in with email</span>
           <span class="div-line"></span>
         </div>
 
-        <form id="signupForm" novalidate class="form">
-
-
-          <!-- Username row -->
-        <div class="field">
-        <label for="un" class="flbl" id="unLabel">Username</label>
-        <div class="finput-wrap">
-            <span class="ficon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14">
-                <circle cx="12" cy="7" r="4"/>
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            </svg>
-            </span>
-            <input id="un"
-                name="username"
-                type="text"
-                class="finput"
-                placeholder="your username"
-                autocomplete="username"
-                style="padding-left:2.5rem" />
-        </div>
-        <p class="ferr hidden" id="unErr">
-            <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10" style="flex-shrink:0">
-            <path fill-rule="evenodd"
-                    d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                    clip-rule="evenodd"/>
-            </svg>
-            <span></span>
-        </p>
-        </div>
-
-
+        <form id="login-form" novalidate class="form">
           <div class="field">
-            <label for="em" class="flbl" id="emLabel">Email address</label>
+            <label class="flbl" id="lbl-em">Email address</label>
             <div class="finput-wrap">
-              <span class="ficon" id="emailIcon">
+              <span class="ficon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <input id="em" type="email" class="finput" placeholder="raunak@company.com" style="padding-left:2.5rem" autocomplete="email" />
+              <input type="email" class="finput" id="inp-em" style="padding-left:2.5rem" placeholder="you@company.com" autocomplete="email" />
             </div>
-            <p class="ferr hidden" id="emErr">
-              <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10" style="flex-shrink:0"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
-              <span></span>
+            <p class="ferr" id="err-em" style="display:none">
+              <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+              <span id="err-em-txt">Required</span>
             </p>
           </div>
 
           <div>
-            <div class="field">
-              <label for="pw" class="flbl" id="pwLabel">Password</label>
-              <div class="finput-wrap">
-                <span class="ficon" id="lockIcon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <input id="pw" type="password" class="finput" placeholder="Min. 8 characters" style="padding-left:2.5rem;padding-right:2.5rem" autocomplete="new-password" />
-                <span class="fsuffix">
-                  <button type="button" class="eye-btn" id="eyeBtn" tabindex="-1">
-                    <svg id="eyeShow" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <svg id="eyeHide" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </button>
-                </span>
-              </div>
-              <p class="ferr hidden" id="pwErr">
-                <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10" style="flex-shrink:0"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
-                <span></span>
-              </p>
+            <div class="field-row" style="margin-bottom:4px">
+              <label class="flbl" id="lbl-pw" style="margin-bottom:0">Password</label>
+              <a href="#" class="forgot">Forgot password?</a>
             </div>
-            <div class="strength hidden" id="strengthBar">
-              <div class="str-bars">
-                <div class="str-bar" id="bar1"></div>
-                <div class="str-bar" id="bar2"></div>
-                <div class="str-bar" id="bar3"></div>
-                <div class="str-bar" id="bar4"></div>
-              </div>
-              <span class="str-lbl" id="strLabel"></span>
+            <div class="finput-wrap">
+              <span class="ficon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <input type="password" class="finput" id="inp-pw" style="padding-left:2.5rem;padding-right:2.5rem" placeholder="Your password" autocomplete="current-password" />
+              <span class="fsuffix">
+                <button type="button" class="eye-btn" id="eye-btn" tabindex="-1">
+                  <svg id="eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg id="eye-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </span>
             </div>
+            <p class="ferr" id="err-pw" style="display:none">
+              <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+              <span id="err-pw-txt">Required</span>
+            </p>
           </div>
 
-          <!-- Terms -->
-          <label class="terms" id="termsLabel">
+          <label class="remember" id="remember-label">
             <div class="chk" id="chk"></div>
-            <span class="terms-txt">
-              I agree to the
-              <a href="#" class="link">Terms of Service</a>
-              and
-              <a href="#" class="link">Privacy Policy</a>
-            </span>
+            <span class="remember-txt">Keep me signed in for 30 days</span>
           </label>
 
-          <button type="submit" class="cta" id="ctaBtn">Sign in &rarr;</button>
+          <button type="submit" class="cta" id="submit-btn">Sign in to workspace &rarr;</button>
         </form>
 
-        <p class="signin">
-          Already have an account?
-          <a href="/" class="link fw6">Create account</a>
-        </p>
-      </div>
+        <p class="signup">Don't have an account? <a href="/" class="link fw6">Create one free</a></p>
 
-      <!-- Success view -->
-      <div id="successView" class="hidden">
-        <div class="success">
-          <div class="success-ring">
-            <svg viewBox="0 0 24 24" fill="none" width="30" height="30">
-              <path d="M5 13l4 4L19 7" stroke="#4ade80" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3 class="suc-h">You're in!</h3>
-          <p class="suc-p">Check your inbox to verify your email address and get started.</p>
+        <div class="trust">
+          <span class="trust-item">
+            <svg viewBox="0 0 16 16" fill="none" width="11" height="11"><path d="M8 1l1.9 3.8 4.1.6-3 2.9.7 4.1L8 10.4l-3.7 2 .7-4.1-3-2.9 4.1-.6z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" opacity=".6"/></svg>
+            SOC 2 Certified
+          </span>
+          <span class="trust-item">
+            <svg viewBox="0 0 16 16" fill="none" width="11" height="11"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.1" opacity=".6"/><path d="M5 6V5a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.1" opacity=".6"/></svg>
+            SSL Encrypted
+          </span>
+          <span class="trust-item">
+            <svg viewBox="0 0 16 16" fill="none" width="11" height="11"><path d="M8 2l2 4 4.5.65-3.25 3.17.77 4.5L8 12.18l-4.02 2.14.77-4.5L1.5 6.65 6 6z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" opacity=".6"/></svg>
+            GDPR Ready
+          </span>
         </div>
       </div>
 
+      <!-- Success view -->
+      <div id="success-view" class="success" style="display:none">
+        <div class="success-ring">
+          <svg viewBox="0 0 24 24" fill="none" width="30" height="30">
+            <path d="M5 13l4 4L19 7" stroke="#7ec87e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="suc-h">Welcome back!</h3>
+        <p class="suc-p">You're signed in. Redirecting you to your workspace&hellip;</p>
+        <button class="suc-btn" onclick="document.getElementById('success-view').style.display='none';document.getElementById('form-view').style.display='block'">Back to sign in</button>
+      </div>
     </div>
   </main>
-
 </div>
 
 <script>
-  // State
-  let agreed = false;
+  // ── Password toggle ──
+  const pwInput = document.getElementById('inp-pw');
+  const eyeBtn  = document.getElementById('eye-btn');
+  const eyeShow = document.getElementById('eye-show');
+  const eyeHide = document.getElementById('eye-hide');
   let showPw = false;
-  const touched = { fn: false, ln: false, em: false, pw: false };
-
-  // Elements
-  const fnInput = document.getElementById('fn');
-  const lnInput = document.getElementById('ln');
-  const emInput = document.getElementById('em');
-  const pwInput = document.getElementById('pw');
-  const chk     = document.getElementById('chk');
-  const eyeBtn  = document.getElementById('eyeBtn');
-  const eyeShow = document.getElementById('eyeShow');
-  const eyeHide = document.getElementById('eyeHide');
-  const ctaBtn  = document.getElementById('ctaBtn');
-  const form    = document.getElementById('signupForm');
-  const strBar  = document.getElementById('strengthBar');
-  const strLbl  = document.getElementById('strLabel');
-  const bars    = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3'), document.getElementById('bar4')];
-
-  // Password strength
-  function getStrength(p) {
-    if (!p) return { score: 0, label: '', color: '' };
-    let s = 0;
-    if (p.length >= 8)  s++;
-    if (p.length >= 12) s++;
-    if (/[A-Z]/.test(p)) s++;
-    if (/[0-9]/.test(p)) s++;
-    if (/[^A-Za-z0-9]/.test(p)) s++;
-    if (s <= 1) return { score: 1, label: 'Weak',   color: '#f87171' };
-    if (s === 2) return { score: 2, label: 'Fair',   color: '#fb923c' };
-    if (s === 3) return { score: 3, label: 'Good',   color: '#facc15' };
-    return              { score: 4, label: 'Strong', color: '#4ade80' };
-  }
-
-  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
-  function getErrors() {
-    return {
-      fn: fnInput.value.trim() ? '' : 'Required',
-      ln: lnInput.value.trim() ? '' : 'Required',
-      em: !emInput.value.trim() ? 'Required' : !isEmail(emInput.value) ? 'Invalid email' : '',
-      pw: !pwInput.value ? 'Required' : pwInput.value.length < 8 ? 'Min 8 characters' : '',
-    };
-  }
-
-  function showErr(field, msg) {
-    const errEl = document.getElementById(field + 'Err');
-    const input  = document.getElementById(field === 'em' ? 'em' : field === 'pw' ? 'pw' : field);
-    if (msg) {
-      errEl.querySelector('span').textContent = msg;
-      errEl.classList.remove('hidden');
-      errEl.style.animation = 'fd .18s ease';
-      input.classList.add('has-error');
-    } else {
-      errEl.classList.add('hidden');
-      input.classList.remove('has-error');
-    }
-  }
-
-  function validateField(field) {
-    const errs = getErrors();
-    if (touched[field]) showErr(field, errs[field]);
-  }
-
-  function validateAll() {
-    const errs = getErrors();
-    Object.keys(touched).forEach(f => { touched[f] = true; showErr(f, errs[f]); });
-    return !Object.values(errs).some(Boolean);
-  }
-
-  // Focus/blur label colors
-  function setLabelFocus(labelId, focused, hasError) {
-    const lbl = document.getElementById(labelId);
-    lbl.style.color = hasError ? '#f87171' : focused ? '#e8c97e' : 'rgba(255,255,255,0.35)';
-  }
-
-  // Input events
-  fnInput.addEventListener('blur',  () => { touched.fn = true; validateField('fn'); setLabelFocus('fnLabel', false, !!getErrors().fn); });
-  fnInput.addEventListener('focus', () => setLabelFocus('fnLabel', true, false));
-  fnInput.addEventListener('input', () => { if (touched.fn) validateField('fn'); });
-
-  lnInput.addEventListener('blur',  () => { touched.ln = true; validateField('ln'); setLabelFocus('lnLabel', false, !!getErrors().ln); });
-  lnInput.addEventListener('focus', () => setLabelFocus('lnLabel', true, false));
-  lnInput.addEventListener('input', () => { if (touched.ln) validateField('ln'); });
-
-  emInput.addEventListener('blur',  () => { touched.em = true; validateField('em'); setLabelFocus('emLabel', false, !!getErrors().em); });
-  emInput.addEventListener('focus', () => setLabelFocus('emLabel', true, false));
-  emInput.addEventListener('input', () => { if (touched.em) validateField('em'); });
-
-  pwInput.addEventListener('blur',  () => { touched.pw = true; validateField('pw'); setLabelFocus('pwLabel', false, !!getErrors().pw); });
-  pwInput.addEventListener('focus', () => setLabelFocus('pwLabel', true, false));
-  pwInput.addEventListener('input', () => {
-    if (touched.pw) validateField('pw');
-    const v = pwInput.value;
-    if (v) {
-      strBar.classList.remove('hidden');
-      const st = getStrength(v);
-      bars.forEach((b, i) => {
-        if (i < st.score) {
-          b.style.background  = st.color;
-          b.style.boxShadow   = '0 0 6px ' + st.color + '55';
-        } else {
-          b.style.background = 'rgba(255,255,255,0.05)';
-          b.style.boxShadow  = 'none';
-        }
-      });
-      strLbl.textContent  = st.label;
-      strLbl.style.color  = st.color;
-    } else {
-      strBar.classList.add('hidden');
-    }
-  });
-
-  // Terms checkbox
-  chk.addEventListener('click', () => {
-    agreed = !agreed;
-    chk.classList.toggle('checked', agreed);
-  });
-
-  // Eye toggle
   eyeBtn.addEventListener('click', () => {
     showPw = !showPw;
     pwInput.type = showPw ? 'text' : 'password';
-    eyeShow.classList.toggle('hidden', showPw);
-    eyeHide.classList.toggle('hidden', !showPw);
+    eyeShow.style.display = showPw ? 'none' : '';
+    eyeHide.style.display = showPw ? '' : 'none';
   });
 
-  // Submit
+  // ── Remember me checkbox ──
+  const chk = document.getElementById('chk');
+  const rememberLabel = document.getElementById('remember-label');
+  let remember = false;
+  rememberLabel.addEventListener('click', () => {
+    remember = !remember;
+    chk.classList.toggle('checked', remember);
+    if (remember) {
+      chk.innerHTML = '<svg viewBox="0 0 8 8" fill="none" width="8" height="8"><path d="M1 4l2 2 4-4" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    } else {
+      chk.innerHTML = '';
+    }
+  });
+
+  // ── Focus/blur label highlight ──
+  [{ input: 'inp-em', label: 'lbl-em' }, { input: 'inp-pw', label: 'lbl-pw' }].forEach(({ input, label }) => {
+    const inp = document.getElementById(input);
+    const lbl = document.getElementById(label);
+    inp.addEventListener('focus', () => lbl.classList.add('focused'));
+    inp.addEventListener('blur',  () => { lbl.classList.remove('focused'); validate(true); });
+  });
+
+  // ── Validation ──
+  function validate(showErrors) {
+    const em = document.getElementById('inp-em').value.trim();
+    const pw = document.getElementById('inp-pw').value;
+
+    const errs = {
+      em: !em ? 'Required' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) ? 'Invalid email' : '',
+      pw: !pw ? 'Required' : pw.length < 6 ? 'Min 6 characters' : '',
+    };
+
+    if (showErrors) {
+      ['em', 'pw'].forEach(k => {
+        const inp = document.getElementById('inp-' + k);
+        const errEl = document.getElementById('err-' + k);
+        const lbl = document.getElementById('lbl-' + k);
+        if (errs[k]) {
+          inp.classList.add('has-error');
+          lbl.classList.add('errored');
+          const txtEl = document.getElementById('err-' + k + '-txt');
+          if (txtEl) txtEl.textContent = errs[k];
+          if (errEl) errEl.style.display = 'flex';
+        } else {
+          inp.classList.remove('has-error');
+          lbl.classList.remove('errored');
+          if (errEl) errEl.style.display = 'none';
+        }
+      });
+    }
+    return !errs.em && !errs.pw;
+  }
+
+  // ── Form submit ──
+  const form = document.getElementById('login-form');
+  const submitBtn = document.getElementById('submit-btn');
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const valid = validateAll();
-    if (!valid || !agreed) return;
-    ctaBtn.disabled = true;
-    ctaBtn.innerHTML = '<span class="cta-loading"><span class="spinner"></span>Creating account\u2026</span>';
+    if (!validate(true)) return;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="cta-loading"><span class="spinner"></span>Signing in…</span>';
     setTimeout(() => {
-      document.getElementById('formView').classList.add('hidden');
-      document.getElementById('successView').classList.remove('hidden');
-    }, 1800);
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('success-view').style.display = 'flex';
+    }, 1500);
   });
 </script>
-
 </body>
 </html>
