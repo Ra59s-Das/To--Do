@@ -1,6 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from .models import TODOO
+
+
+def home(request):
+    """Landing page — shown at /"""
+    if request.user.is_authenticated:
+        return redirect("todo")
+    return render(request, "home.html")
 
 
 def signup(request):
@@ -17,7 +26,7 @@ def signup(request):
         if User.objects.filter(username=username).exists():
             return render(request, "signup.html", {"error": "Username already taken"})
 
-        if User.objects.filter(email=email).exists():  # Add this check
+        if User.objects.filter(email=email).exists():
             return render(request, "signup.html", {"error": "Email already registered. Please log in."})
 
         user = User.objects.create_user(
@@ -29,7 +38,7 @@ def signup(request):
         )
 
         login(request, user)
-        return redirect("login/")  # Or wherever you want post-signup
+        return redirect("todo")
 
     return render(request, "signup.html")
 
@@ -41,6 +50,37 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/")
+            return redirect("todo")
         return render(request, "login.html", {"error": "Invalid credentials"})
     return render(request, "login.html")
+
+
+@login_required
+def todo_view(request):
+    """Main todo list page — requires login."""
+    tasks = TODOO.objects.filter(user=request.user).order_by("-data")
+    return render(request, "todo.html", {"tasks": tasks})
+
+
+@login_required
+def add_task(request):
+    """Add a new task (POST only)."""
+    if request.method == "POST":
+        title = request.POST.get("title", "").strip()
+        if title:
+            TODOO.objects.create(title=title, user=request.user)
+    return redirect("todo")
+
+
+@login_required
+def delete_task(request, srno):
+    """Delete a task by its primary key (POST only)."""
+    if request.method == "POST":
+        task = get_object_or_404(TODOO, srno=srno, user=request.user)
+        task.delete()
+    return redirect("todo")
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")

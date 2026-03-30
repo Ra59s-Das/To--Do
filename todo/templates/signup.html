@@ -626,12 +626,19 @@
           <span class="div-line"></span>
         </div>
 
-        <form id="signup-form" novalidate class="form">
+        <form id="signup-form" method="POST" action="{% url 'signup' %}" novalidate class="form">
+          {% csrf_token %}
+          {% if error %}
+          <div style="background:rgba(210,90,90,0.08);border:1px solid rgba(210,90,90,0.2);border-radius:10px;padding:10px 14px;margin-bottom:4px;display:flex;align-items:center;gap:8px">
+            <svg viewBox="0 0 16 16" fill="#c07878" width="12" height="12"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+            <span style="color:#c07878;font-size:12px;font-weight:500">{{ error }}</span>
+          </div>
+          {% endif %}
           <div class="name-row">
             <div class="field">
               <label class="flbl" id="lbl-fn">First name</label>
               <div class="finput-wrap">
-                <input type="text" class="finput" id="inp-fn" placeholder="Raunak" autocomplete="given-name" />
+                <input type="text" name="first_name" class="finput" id="inp-fn" placeholder="Raunak" autocomplete="given-name" />
               </div>
               <p class="ferr" id="err-fn" style="display:none">
                 <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
@@ -641,7 +648,7 @@
             <div class="field">
               <label class="flbl" id="lbl-ln">Last name</label>
               <div class="finput-wrap">
-                <input type="text" class="finput" id="inp-ln" placeholder="Das" autocomplete="family-name" />
+                <input type="text" name="last_name" class="finput" id="inp-ln" placeholder="Das" autocomplete="family-name" />
               </div>
               <p class="ferr" id="err-ln" style="display:none">
                 <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
@@ -656,7 +663,7 @@
               <span class="ficon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
               </span>
-              <input type="text" class="finput" id="inp-un" style="padding-left:2.5rem" placeholder="your_username" autocomplete="username" />
+              <input type="text" name="username" class="finput" id="inp-un" style="padding-left:2.5rem" placeholder="your_username" autocomplete="username" />
             </div>
             <p class="ferr" id="err-un" style="display:none">
               <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
@@ -670,7 +677,7 @@
               <span class="ficon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <input type="email" class="finput" id="inp-em" style="padding-left:2.5rem" placeholder="you@company.com" autocomplete="email" />
+              <input type="email" name="email" class="finput" id="inp-em" style="padding-left:2.5rem" placeholder="you@company.com" autocomplete="email" />
             </div>
             <p class="ferr" id="err-em" style="display:none">
               <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 4a.75.75 0 011.5 0v3a.75.75 0 01-1.5 0V5zm.75 6a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
@@ -685,7 +692,7 @@
                 <span class="ficon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                <input type="password" class="finput" id="inp-pw" style="padding-left:2.5rem;padding-right:2.5rem" placeholder="Min. 8 characters" autocomplete="new-password" />
+                <input type="password" name="password" class="finput" id="inp-pw" style="padding-left:2.5rem;padding-right:2.5rem" placeholder="Min. 8 characters" autocomplete="new-password" />
                 <span class="fsuffix">
                   <button type="button" class="eye-btn" id="eye-btn" tabindex="-1">
                     <svg id="eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -880,19 +887,18 @@
   const submitBtn = document.getElementById('submit-btn');
 
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!validate(true)) return;
+    if (!validate(true)) {
+      e.preventDefault();
+      return;
+    }
     if (!agreed) {
+      e.preventDefault();
       chk.style.borderColor = 'rgba(210,90,90,0.5)';
       setTimeout(() => chk.style.borderColor = '', 1200);
       return;
     }
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="cta-loading"><span class="spinner"></span>Creating account…</span>';
-    setTimeout(() => {
-      document.getElementById('form-view').style.display = 'none';
-      document.getElementById('success-view').style.display = 'flex';
-    }, 1800);
   });
 </script>
 </body>
