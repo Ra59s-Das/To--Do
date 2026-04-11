@@ -1,255 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Doable — Ship Faster, Stay Aligned</title>
-  <meta name="description" content="The premium command center for modern teams. Plan, prioritize, and deliver with relentless clarity." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta name="description" content="The premium AI-powered task manager. Plan, prioritize, and deliver with relentless clarity."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; background: #0a0a0a; color: #e0e0e0; font-family: 'Inter', system-ui, sans-serif; color-scheme: dark; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{overflow-x:hidden;background:#09090b;color:#e2e2e5;font-family:'Inter',system-ui,sans-serif;color-scheme:dark}
 
-    /* ── Background ── */
-    .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(130px); will-change: transform; }
-    .orb-a {
-      width: 900px; height: 900px; top: -300px; left: -200px;
-      background: radial-gradient(circle, rgba(160,160,160,0.07) 0%, transparent 65%);
-      animation: oa 22s ease-in-out infinite;
-    }
-    .orb-b {
-      width: 700px; height: 700px; bottom: -250px; right: -150px;
-      background: radial-gradient(circle, rgba(120,120,120,0.06) 0%, transparent 65%);
-      animation: ob 26s ease-in-out infinite;
-    }
-    .orb-c {
-      width: 550px; height: 550px; top: 50%; left: 40%;
-      background: radial-gradient(circle, rgba(200,200,200,0.035) 0%, transparent 65%);
-      animation: oc 30s ease-in-out infinite;
-    }
-    @keyframes oa { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,35px) scale(1.06)} }
-    @keyframes ob { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-40px,-45px) scale(1.07)} }
-    @keyframes oc { 0%,100%{transform:translate(0,0)} 40%{transform:translate(25px,-28px)} 80%{transform:translate(-18px,16px)} }
+    /* ── BG ── */
+    .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .orb{position:absolute;border-radius:50%;filter:blur(130px);will-change:transform}
+    .orb-a{width:900px;height:900px;top:-300px;left:-200px;background:radial-gradient(circle,rgba(139,92,246,0.08),transparent 65%);animation:oa 22s ease-in-out infinite}
+    .orb-b{width:700px;height:700px;bottom:-250px;right:-150px;background:radial-gradient(circle,rgba(99,102,241,0.06),transparent 65%);animation:ob 26s ease-in-out infinite}
+    .orb-c{width:550px;height:550px;top:50%;left:40%;background:radial-gradient(circle,rgba(168,85,247,0.04),transparent 65%);animation:oc 30s ease-in-out infinite}
+    .orb-d{width:400px;height:400px;top:30%;right:10%;background:radial-gradient(circle,rgba(234,88,12,0.04),transparent 65%);animation:od 35s ease-in-out infinite}
+    @keyframes oa{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(50px,35px) scale(1.06)}}
+    @keyframes ob{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,-45px) scale(1.07)}}
+    @keyframes oc{0%,100%{transform:translate(0,0)}40%{transform:translate(25px,-28px)}80%{transform:translate(-18px,16px)}}
+    @keyframes od{0%,100%{transform:translate(0,0)}60%{transform:translate(-30px,20px)}}
+    .noise{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.025}
+    /* grid lines */
+    .grid-lines{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);background-size:80px 80px}
 
-    .noise {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.028;
-    }
+    /* ── NAV ── */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:rgba(9,9,11,0.75);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.045)}
+    .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+    .logo-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#e0e0e0,#888,#2a2a2a);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(255,255,255,0.12),0 4px 24px rgba(0,0,0,0.55)}
+    .logo-name{font-size:17px;font-weight:900;letter-spacing:-.5px;background:linear-gradient(110deg,#f0f0f0,#b0b0b0,#686868);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .nav-center{display:flex;align-items:center;gap:2px}
+    .nav-item{padding:7px 16px;border-radius:8px;font-size:13px;font-weight:500;color:rgba(190,190,190,.45);text-decoration:none;transition:all .18s}
+    .nav-item:hover{color:rgba(220,220,220,.85);background:rgba(255,255,255,.05)}
+    .nav-btns{display:flex;align-items:center;gap:8px}
+    .nav-link{padding:7px 17px;border-radius:9px;font-size:12.5px;font-weight:600;color:rgba(190,190,190,.5);text-decoration:none;transition:all .18s;border:1px solid transparent}
+    .nav-link:hover{color:#e0e0e0;background:rgba(255,255,255,.04)}
+    .nav-cta{padding:7px 18px;border-radius:9px;font-size:12.5px;font-weight:700;color:#f0f0f0;text-decoration:none;background:linear-gradient(135deg,#1c1c1c,#3a3a3a,#606060,#1c1c1c);background-size:200% auto;animation:cshift 5s linear infinite;border:1px solid rgba(255,255,255,.12);box-shadow:0 4px 18px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);transition:transform .2s,box-shadow .2s}
+    .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,0,0,.6)}
+    @keyframes cshift{to{background-position:200% center}}
 
-    /* ── Nav ── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 40px;
-      background: rgba(10,10,10,0.7);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-    .logo-icon {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: linear-gradient(135deg, #e0e0e0 0%, #888 50%, #2a2a2a 100%);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 4px 24px rgba(0,0,0,0.55);
-    }
-    .logo-name {
-      font-size: 18px; font-weight: 800; letter-spacing: -0.5px;
-      background: linear-gradient(110deg, #f0f0f0 0%, #b0b0b0 55%, #686868 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .nav-btns { display: flex; align-items: center; gap: 10px; }
-    .nav-link {
-      padding: 8px 18px; border-radius: 9px; font-size: 13px; font-weight: 600;
-      color: rgba(200,200,200,0.55); text-decoration: none;
-      transition: all .18s; border: 1px solid transparent;
-    }
-    .nav-link:hover { color: #e0e0e0; background: rgba(255,255,255,0.04); }
-    .nav-cta {
-      padding: 8px 20px; border-radius: 9px; font-size: 13px; font-weight: 700;
-      color: #f0f0f0; text-decoration: none;
-      background: linear-gradient(135deg, #1c1c1c 0%, #3a3a3a 30%, #606060 60%, #1c1c1c 100%);
-      background-size: 200% auto; animation: cta-shift 5s linear infinite;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-      transition: all .2s;
-    }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.14); }
-    @keyframes cta-shift { to { background-position: 200% center; } }
+    /* ── HERO ── */
+    .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px 5px 5px;border-radius:999px;margin-bottom:32px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:rgba(167,139,250,.8);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;animation:fadeUp .6s ease both}
+    .badge-chip{background:rgba(139,92,246,.25);border-radius:999px;padding:2px 9px;font-size:10px;color:rgba(196,181,253,.9)}
+    .hero-h1{font-size:clamp(2.6rem,6.5vw,5rem);font-weight:900;line-height:1.03;letter-spacing:-2.5px;margin-bottom:24px;animation:fadeUp .6s ease .1s both}
+    .platinum{background:linear-gradient(110deg,#d0d0d0,#fff 22%,#9a9a9a 46%,#e8e8e8 66%,#c0c0c0,#f8f8f8 96%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+    .ai-text{background:linear-gradient(110deg,#a78bfa,#c4b5fd 30%,#7c3aed 60%,#a78bfa);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
+    @keyframes shimmer{to{background-position:220% center}}
+    .hero-sub{max-width:540px;color:rgba(200,200,200,.35);font-size:16px;line-height:1.75;margin-bottom:44px;animation:fadeUp .6s ease .2s both}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:52px;animation:fadeUp .6s ease .3s both}
+    .btn-primary{padding:14px 32px;border-radius:13px;font-size:14px;font-weight:700;color:#f0f0f0;text-decoration:none;font-family:inherit;background:linear-gradient(135deg,#1c1c1c,#3a3a3a,#606060,#1c1c1c);background-size:200% auto;animation:cshift 5s linear infinite;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 36px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12);transition:all .2s;cursor:pointer}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.14),0 16px 48px rgba(0,0,0,.7)}
+    .btn-secondary{padding:14px 32px;border-radius:13px;font-size:14px;font-weight:600;color:rgba(200,200,200,.55);text-decoration:none;font-family:inherit;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);transition:all .2s;cursor:pointer}
+    .btn-secondary:hover{color:#e0e0e0;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);transform:translateY(-1px)}
+    /* Social proof row */
+    .social-proof{display:flex;align-items:center;gap:16px;animation:fadeUp .6s ease .45s both}
+    .avatars{display:flex}
+    .av-img{width:28px;height:28px;border-radius:50%;border:2px solid rgba(9,9,11,.8);background:linear-gradient(135deg,#444,#777);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#ccc}
+    .avatars .av-img:first-child{margin-left:0}
+    .social-txt{font-size:12px;color:rgba(180,180,180,.3);font-weight:500}
+    .social-txt strong{color:rgba(200,200,200,.5)}
+    /* Stars */
+    .stars{display:flex;gap:2px}
+    .stars svg{fill:rgba(251,191,36,.7)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-    /* ── Hero ── */
-    .hero {
-      position: relative; z-index: 1;
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 120px 24px 80px;
-    }
-    .pill {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 6px 16px; border-radius: 999px; margin-bottom: 28px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #909090; font-size: 11px; font-weight: 700;
-      letter-spacing: .09em; text-transform: uppercase;
-      animation: fadeUp .6s ease both;
-    }
-    .pill-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #aaa; box-shadow: 0 0 10px rgba(180,180,180,0.8);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
+    /* ── LIVE DEMO MOCKUP ── */
+    .demo-wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:0 24px 80px}
+    .demo-label{text-align:center;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(139,92,246,.45);margin-bottom:16px}
+    .demo-window{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04)}
+    .demo-titlebar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05)}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .dot-r{background:rgba(255,95,86,.6)}.dot-y{background:rgba(255,189,46,.6)}.dot-g{background:rgba(39,201,63,.6)}
+    .demo-url{flex:1;margin:0 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:4px 12px;font-size:11px;color:rgba(160,160,160,.4);font-family:monospace}
+    .demo-body{padding:20px}
+    .demo-task{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.055);border-radius:9px;margin-bottom:8px;transition:all .3s}
+    .demo-task.active{border-color:rgba(139,92,246,.25);background:rgba(139,92,246,.05)}
+    .demo-check{width:17px;height:17px;border-radius:4px;border:1.5px solid rgba(255,255,255,.14);flex-shrink:0}
+    .demo-check.done{background:linear-gradient(135deg,#383838,#646464);border-color:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+    .demo-check.done::after{content:'';width:4px;height:6px;border:1.5px solid #f0f0f0;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px)}
+    .demo-bar{width:3px;height:26px;border-radius:99px;flex-shrink:0}
+    .demo-bar.h{background:rgba(210,75,75,.8)}.demo-bar.m{background:rgba(205,155,45,.8)}.demo-bar.l{background:rgba(60,165,65,.7)}
+    .demo-title{font-size:12px;font-weight:500;color:rgba(210,210,210,.8);flex:1}
+    .demo-title.done{text-decoration:line-through;color:rgba(150,150,150,.4)}
+    .demo-tag{font-size:8.5px;font-weight:700;text-transform:uppercase;padding:1.5px 6px;border-radius:4px}
+    .demo-tag.work{background:rgba(74,128,212,.12);color:rgba(100,155,225,.65)}
+    .demo-tag.urgent{background:rgba(212,74,74,.12);color:rgba(220,100,100,.68)}
+    .demo-tag.personal{background:rgba(72,176,110,.11);color:rgba(80,190,115,.65)}
+    .demo-tag.health{background:rgba(212,132,74,.11);color:rgba(220,150,90,.65)}
+    .ai-suggest-bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.18);border-radius:8px;margin-top:12px;animation:pulse-border 2s ease-in-out infinite}
+    @keyframes pulse-border{0%,100%{border-color:rgba(139,92,246,.18)}50%{border-color:rgba(139,92,246,.35)}}
+    .ai-dot{width:6px;height:6px;border-radius:50%;background:rgba(167,139,250,.8);box-shadow:0 0 8px rgba(139,92,246,.6);animation:pulse-dot 1.5s ease-in-out infinite}
+    @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+    .ai-txt{font-size:11px;color:rgba(167,139,250,.75);flex:1}
+    .ai-apply{font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.3);color:rgba(196,181,253,.9);cursor:pointer}
 
-    .hero-h1 {
-      font-size: clamp(2.4rem, 6vw, 4.5rem);
-      font-weight: 900; line-height: 1.05; letter-spacing: -2px;
-      margin-bottom: 22px;
-      animation: fadeUp .6s ease .1s both;
-    }
-    .platinum-text {
-      background: linear-gradient(110deg, #d0d0d0 0%, #ffffff 22%, #9a9a9a 46%, #e8e8e8 66%, #c0c0c0 80%, #f8f8f8 96%);
-      background-size: 220% auto;
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 4s linear infinite;
-    }
-    @keyframes shimmer { to { background-position: 220% center; } }
+    /* ── FEATURES ── */
+    .section{position:relative;z-index:1;padding:80px 24px;max-width:1100px;margin:0 auto}
+    .eyebrow{text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(139,92,246,.5);margin-bottom:10px}
+    .sec-title{text-align:center;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;letter-spacing:-1px;margin-bottom:14px;color:#e0e0e0}
+    .sec-sub{text-align:center;color:rgba(200,200,200,.3);font-size:14px;line-height:1.7;max-width:480px;margin:0 auto 52px}
 
-    .hero-sub {
-      max-width: 520px; color: rgba(200,200,200,0.35);
-      font-size: 16px; line-height: 1.7; margin-bottom: 40px;
-      animation: fadeUp .6s ease .2s both;
-    }
-    .hero-actions {
-      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp .6s ease .3s both;
-    }
-    .btn-primary {
-      padding: 14px 32px; border-radius: 13px; font-size: 14px; font-weight: 700;
-      color: #f0f0f0; text-decoration: none; font-family: inherit;
-      background: linear-gradient(135deg, #1c1c1c 0%, #3a3a3a 30%, #606060 60%, #1c1c1c 100%);
-      background-size: 200% auto; animation: cta-shift 5s linear infinite;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 10px 36px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.12);
-      transition: all .2s; cursor: pointer;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,255,255,0.14), 0 16px 48px rgba(0,0,0,0.7); }
-    .btn-secondary {
-      padding: 14px 32px; border-radius: 13px; font-size: 14px; font-weight: 600;
-      color: rgba(200,200,200,0.55); text-decoration: none; font-family: inherit;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      transition: all .2s; cursor: pointer;
-    }
-    .btn-secondary:hover { color: #e0e0e0; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); transform: translateY(-1px); }
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+    .feat-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.055);border-radius:18px;padding:28px 26px;transition:all .25s;position:relative;overflow:hidden}
+    .feat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(139,92,246,.04),transparent 60%);opacity:0;transition:opacity .3s}
+    .feat-card:hover{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.1);transform:translateY(-4px);box-shadow:0 24px 70px rgba(0,0,0,.5)}
+    .feat-card:hover::before{opacity:1}
+    .feat-card.highlight{border-color:rgba(139,92,246,.22);background:rgba(139,92,246,.04)}
+    .feat-card.highlight::before{opacity:1}
+    .feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;border:1px solid rgba(255,255,255,.08)}
+    .feat-icon.purple{background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.2)}
+    .feat-icon.orange{background:rgba(234,88,12,.1);border-color:rgba(234,88,12,.18)}
+    .feat-icon.blue{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.18)}
+    .feat-icon.green{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.15)}
+    .feat-icon.pink{background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.15)}
+    .feat-icon.gray{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+    .prem-badge{display:inline-flex;align-items:center;gap:4px;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:4px;background:rgba(139,92,246,.15);color:rgba(167,139,250,.8);border:1px solid rgba(139,92,246,.2);margin-bottom:10px}
+    .feat-h3{font-size:15px;font-weight:700;color:rgba(225,225,225,.78);margin-bottom:7px}
+    .feat-p{font-size:12.5px;color:rgba(175,175,175,.3);line-height:1.7}
 
-    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+    /* ── HOW IT WORKS ── */
+    .how-section{position:relative;z-index:1;padding:80px 24px;max-width:900px;margin:0 auto}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;position:relative}
+    .steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);z-index:0}
+    .step{text-align:center;padding:24px 20px;position:relative;z-index:1}
+    .step-num{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:18px;font-weight:900;color:rgba(200,200,200,.4);position:relative}
+    .step-num.active{border-color:rgba(139,92,246,.35);background:rgba(139,92,246,.1);color:rgba(167,139,250,.9)}
+    .step-num.active::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(139,92,246,.2);animation:ring-pulse 2s ease-in-out infinite}
+    @keyframes ring-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.15)}}
+    .step-h{font-size:14px;font-weight:700;color:rgba(215,215,215,.7);margin-bottom:7px}
+    .step-p{font-size:12px;color:rgba(165,165,165,.28);line-height:1.65}
 
-    /* ── Features ── */
-    .features {
-      position: relative; z-index: 1;
-      padding: 80px 24px 100px;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .section-eyebrow {
-      text-align: center; font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .12em;
-      color: rgba(180,180,180,0.35); margin-bottom: 10px;
-    }
-    .section-title {
-      text-align: center; font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 800; letter-spacing: -1px; margin-bottom: 14px;
-      color: #e0e0e0;
-    }
-    .section-sub {
-      text-align: center; color: rgba(200,200,200,0.3); font-size: 14px;
-      line-height: 1.7; max-width: 480px; margin: 0 auto 50px;
-    }
-    .feat-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
-    .feat-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.055);
-      border-radius: 18px; padding: 28px 26px;
-      transition: all .25s;
-    }
-    .feat-card:hover {
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(255,255,255,0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    .feat-icon-box {
-      width: 42px; height: 42px; border-radius: 11px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 16px;
-    }
-    .feat-h3 { font-size: 15px; font-weight: 700; color: rgba(230,230,230,0.75); margin-bottom: 6px; }
-    .feat-p { font-size: 12.5px; color: rgba(180,180,180,0.3); line-height: 1.65; }
+    /* ── TESTIMONIALS ── */
+    .test-section{position:relative;z-index:1;padding:80px 24px;max-width:1100px;margin:0 auto}
+    .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+    .test-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.055);border-radius:16px;padding:24px 22px;transition:all .22s}
+    .test-card:hover{background:rgba(255,255,255,.035);transform:translateY(-2px)}
+    .test-stars{display:flex;gap:3px;margin-bottom:14px}
+    .test-stars svg{fill:rgba(251,191,36,.65)}
+    .test-quote{font-size:13px;color:rgba(190,190,190,.5);line-height:1.7;margin-bottom:18px;font-style:italic}
+    .test-author{display:flex;align-items:center;gap:10px}
+    .test-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#444,#777);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#ccc;flex-shrink:0}
+    .test-name{font-size:12.5px;font-weight:700;color:rgba(210,210,210,.6)}
+    .test-role{font-size:11px;color:rgba(155,155,155,.3)}
 
-    /* ── Stats bar ── */
-    .stats-bar {
-      position: relative; z-index: 1;
-      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
-      padding: 50px 24px 80px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      max-width: 800px; margin: 0 auto;
-    }
-    .stat { text-align: center; }
-    .stat-v {
-      font-size: 28px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(110deg, #c0c0c0 0%, #f0f0f0 50%, #888 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .stat-l { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: rgba(180,180,180,0.22); margin-top: 4px; }
+    /* ── PRICING ── */
+    .price-section{position:relative;z-index:1;padding:80px 24px;max-width:900px;margin:0 auto}
+    .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:0}
+    .price-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:28px 24px;transition:all .22s}
+    .price-card:hover{background:rgba(255,255,255,.035);transform:translateY(-2px)}
+    .price-card.featured{background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.3);position:relative}
+    .featured-tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:999px;padding:3px 14px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.06em;white-space:nowrap}
+    .price-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(160,160,160,.4);margin-bottom:10px}
+    .price-amt{font-size:38px;font-weight:900;letter-spacing:-1px;color:rgba(220,220,220,.85);margin-bottom:4px}
+    .price-amt span{font-size:16px;font-weight:500;color:rgba(160,160,160,.4);vertical-align:top;margin-top:8px;display:inline-block}
+    .price-per{font-size:11px;color:rgba(150,150,150,.28);margin-bottom:20px}
+    .price-divider{height:1px;background:rgba(255,255,255,.05);margin-bottom:20px}
+    .price-feature{display:flex;align-items:center;gap:9px;margin-bottom:11px;font-size:12.5px;color:rgba(180,180,180,.45)}
+    .price-feature svg{flex-shrink:0;opacity:.7}
+    .price-feature.on{color:rgba(200,200,200,.65)}
+    .price-feature.on svg{opacity:1}
+    .price-btn{display:block;text-align:center;padding:11px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;margin-top:22px;font-family:inherit;cursor:pointer;border:none}
+    .price-btn.free{background:rgba(255,255,255,.06);color:rgba(200,200,200,.65);border:1px solid rgba(255,255,255,.08)}
+    .price-btn.free:hover{background:rgba(255,255,255,.1)}
+    .price-btn.pro{background:linear-gradient(135deg,#1c1c1c,#3a3a3a,#606060,#1c1c1c);background-size:200% auto;animation:cshift 5s linear infinite;color:#f0f0f0;border:1px solid rgba(255,255,255,.12);box-shadow:0 4px 18px rgba(0,0,0,.5)}
+    .price-btn.pro:hover{transform:translateY(-1px)}
 
-    /* ── CTA section ── */
-    .cta-section {
-      position: relative; z-index: 1;
-      text-align: center; padding: 60px 24px 100px;
-    }
-    .cta-section .section-title { margin-bottom: 10px; }
-    .cta-section .section-sub { margin-bottom: 36px; }
+    /* ── STATS BAR ── */
+    .stats-wrap{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);padding:48px 24px}
+    .stats-inner{display:flex;justify-content:center;gap:64px;flex-wrap:wrap;max-width:800px;margin:0 auto}
+    .stat{text-align:center}
+    .stat-v{font-size:32px;font-weight:900;letter-spacing:-.5px;background:linear-gradient(110deg,#c0c0c0,#f0f0f0,#888);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .stat-l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:rgba(180,180,180,.22);margin-top:5px}
 
-    /* ── Footer ── */
-    .footer {
-      position: relative; z-index: 1;
-      text-align: center; padding: 28px 24px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      font-size: 11px; color: rgba(160,160,160,0.2);
-    }
+    /* ── FAQ ── */
+    .faq-section{position:relative;z-index:1;padding:80px 24px;max-width:700px;margin:0 auto}
+    .faq-item{border-bottom:1px solid rgba(255,255,255,.05);padding:20px 0;cursor:pointer}
+    .faq-q{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:rgba(210,210,210,.65);user-select:none}
+    .faq-icon{width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+    .faq-item.open .faq-icon{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.3);transform:rotate(45deg)}
+    .faq-a{font-size:13px;color:rgba(165,165,165,.38);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+    .faq-item.open .faq-a{max-height:200px;padding-top:12px}
 
-    /* ── Responsive ── */
-    @media (max-width: 640px) {
-      .nav { padding: 14px 20px; }
-      .hero { padding: 100px 20px 60px; }
-      .hero-actions { flex-direction: column; width: 100%; max-width: 320px; }
-      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
-      .stats-bar { gap: 28px; }
-    }
+    /* ── FINAL CTA ── */
+    .cta-section{position:relative;z-index:1;text-align:center;padding:100px 24px}
+    .cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(139,92,246,.08),transparent 70%);pointer-events:none}
+    .cta-title{font-size:clamp(2rem,5vw,3.8rem);font-weight:900;letter-spacing:-1.5px;margin-bottom:18px;line-height:1.05}
+    .cta-sub{color:rgba(200,200,200,.3);font-size:15px;line-height:1.7;max-width:440px;margin:0 auto 40px}
+    .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+    .cta-note{font-size:11.5px;color:rgba(150,150,150,.28)}
+
+    /* ── FOOTER ── */
+    .footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.045);padding:40px 40px 32px}
+    .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto}
+    .footer-brand .logo-name{display:block;font-size:16px;font-weight:900;letter-spacing:-.4px;background:linear-gradient(110deg,#f0f0f0,#888);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+    .footer-brand p{font-size:12px;color:rgba(150,150,150,.28);line-height:1.7;max-width:220px}
+    .footer-col h4{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(150,150,150,.3);margin-bottom:14px}
+    .footer-col a{display:block;font-size:12.5px;color:rgba(165,165,165,.3);text-decoration:none;margin-bottom:9px;transition:color .15s}
+    .footer-col a:hover{color:rgba(200,200,200,.7)}
+    .footer-bottom{max-width:1100px;margin:28px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(140,140,140,.2)}
+    @media(max-width:760px){.footer-inner{grid-template-columns:1fr 1fr}.nav-center{display:none}.footer-bottom{flex-direction:column;gap:8px;text-align:center}}
+    @media(max-width:500px){.hero-actions{flex-direction:column;width:100%;max-width:300px}.btn-primary,.btn-secondary{width:100%;text-align:center}.footer-inner{grid-template-columns:1fr}.stats-inner{gap:32px}.nav{padding:12px 18px}}
   </style>
 </head>
 <body>
-
 <div class="bg">
-  <div class="orb orb-a"></div>
-  <div class="orb orb-b"></div>
-  <div class="orb orb-c"></div>
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <div class="orb orb-c"></div><div class="orb orb-d"></div>
   <div class="noise"></div>
 </div>
+<div class="grid-lines"></div>
 
-<!-- Navigation -->
-<nav class="nav" id="nav">
+<!-- NAV -->
+<nav class="nav">
   <a href="/" class="logo">
     <div class="logo-icon">
       <svg viewBox="0 0 22 22" fill="none" width="15" height="15">
@@ -260,92 +227,372 @@
     </div>
     <span class="logo-name">Doable</span>
   </a>
+  <div class="nav-center">
+    <a href="#features" class="nav-item">Features</a>
+    <a href="#how" class="nav-item">How it works</a>
+    <a href="#pricing" class="nav-item">Pricing</a>
+    <a href="#faq" class="nav-item">FAQ</a>
+  </div>
   <div class="nav-btns">
-    <a href="/login/" class="nav-link" id="nav-signin">Sign In</a>
-    <a href="/signup/" class="nav-cta" id="nav-signup">Get Started Free</a>
+    <a href="{% url 'login' %}" class="nav-link">Sign In</a>
+    <a href="{% url 'signup' %}" class="nav-cta">Get Started Free</a>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero" id="hero">
-  <div class="pill">
-    <span class="pill-dot"></span>
-    Trusted by 50,000+ teams worldwide
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="badge-chip">NEW</span>
+    AI-powered smart suggestions are live
   </div>
   <h1 class="hero-h1">
-    Ship faster,<br />
-    <span class="platinum-text">stay aligned.</span>
+    Your tasks.<br/>
+    <span class="platinum">Smarter.</span> <span class="ai-text">Faster.</span>
   </h1>
-  <p class="hero-sub">
-    The premium command center for modern teams — plan, prioritize, and deliver with relentless clarity. Built for teams that refuse to settle for ordinary.
-  </p>
+  <p class="hero-sub">The premium command center for individuals and teams — with AI that suggests priorities, tracks your streaks, and keeps you relentlessly on track.</p>
   <div class="hero-actions">
-    <a href="/signup/" class="btn-primary" id="hero-cta">Get Started Free &rarr;</a>
-    <a href="/login/" class="btn-secondary" id="hero-signin">Sign In to Workspace</a>
+    <a href="{% url 'signup' %}" class="btn-primary">Start for free &rarr;</a>
+    <a href="{% url 'login' %}" class="btn-secondary">Sign in to workspace</a>
+  </div>
+  <div class="social-proof">
+    <div class="avatars">
+      <div class="av-img">JK</div><div class="av-img">SR</div><div class="av-img">AM</div><div class="av-img">PL</div><div class="av-img">+</div>
+    </div>
+    <div class="stars">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+    </div>
+    <span class="social-txt">Loved by <strong>50,000+</strong> people</span>
   </div>
 </section>
 
-<!-- Features -->
-<section class="features" id="features">
-  <p class="section-eyebrow">Why teams choose Doable</p>
-  <h2 class="section-title">Everything you need to <span class="platinum-text">deliver.</span></h2>
-  <p class="section-sub">From quick captures to full sprint planning — Doable adapts to how your team works, not the other way around.</p>
+<!-- LIVE DEMO MOCKUP -->
+<div class="demo-wrap">
+  <div class="demo-label">&#9679; Live product preview</div>
+  <div class="demo-window">
+    <div class="demo-titlebar">
+      <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+      <div class="demo-url">doable.app/todo</div>
+    </div>
+    <div class="demo-body">
+      <div class="demo-task active">
+        <div class="demo-check"></div>
+        <div class="demo-bar h"></div>
+        <span class="demo-title">Launch new landing page redesign</span>
+        <span class="demo-tag urgent">Urgent</span>
+      </div>
+      <div class="demo-task">
+        <div class="demo-check"></div>
+        <div class="demo-bar m"></div>
+        <span class="demo-title">Review Q3 OKRs with the team</span>
+        <span class="demo-tag work">Work</span>
+      </div>
+      <div class="demo-task">
+        <div class="demo-check done"></div>
+        <div class="demo-bar l"></div>
+        <span class="demo-title done">Set up weekly standup calendar</span>
+        <span class="demo-tag personal">Personal</span>
+      </div>
+      <div class="demo-task">
+        <div class="demo-check"></div>
+        <div class="demo-bar m"></div>
+        <span class="demo-title">Book gym sessions for this week</span>
+        <span class="demo-tag health">Health</span>
+      </div>
+      <div class="ai-suggest-bar">
+        <div class="ai-dot"></div>
+        <span class="ai-txt">✦ AI suggests: <strong style="color:rgba(196,181,253,.9)">"Fix login bug"</strong> → High priority · Work label · Due in 2 days</span>
+        <button class="ai-apply">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- STATS BAR -->
+<div class="stats-wrap">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-v">50K+</div><div class="stat-l">Active Users</div></div>
+    <div class="stat"><div class="stat-v">2.4M</div><div class="stat-l">Tasks Created</div></div>
+    <div class="stat"><div class="stat-v">98%</div><div class="stat-l">Satisfaction</div></div>
+    <div class="stat"><div class="stat-v">99.9%</div><div class="stat-l">Uptime</div></div>
+    <div class="stat"><div class="stat-v">4.9★</div><div class="stat-l">App Rating</div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <p class="eyebrow">Everything you need</p>
+  <h2 class="sec-title">Built for people who <span class="platinum">get things done.</span></h2>
+  <p class="sec-sub">From quick captures to deep focus sessions — Doable has every tool to keep you sharp and moving.</p>
   <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-icon-box">
-        <svg viewBox="0 0 22 22" fill="none" width="16" height="16">
-          <path d="M9 12l2 2 5-5" stroke="#b0b0b0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="11" cy="11" r="9" stroke="#b0b0b0" stroke-width="1.3" opacity=".35"/>
-        </svg>
-      </div>
-      <h3 class="feat-h3">Zero-friction task management</h3>
-      <p class="feat-p">Capture, assign, and ship without the noise. Every task has rich context, due dates, and priority levels baked in.</p>
+    <div class="feat-card highlight">
+      <div class="feat-icon purple"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><circle cx="10" cy="10" r="7.5" stroke="rgba(167,139,250,.8)" stroke-width="1.4"/><path d="M10 6.5v3.5l2.5 1.5" stroke="rgba(167,139,250,.8)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+      <div class="prem-badge">★ Premium</div>
+      <h3 class="feat-h3">AI Smart Suggestions</h3>
+      <p class="feat-p">Type a task and Claude AI instantly suggests the right priority, label, and due date. Work smarter with every keystroke.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon-box">
-        <svg viewBox="0 0 22 22" fill="none" width="16" height="16">
-          <circle cx="8" cy="8" r="3.5" stroke="#a0a0a0" stroke-width="1.3" opacity=".5"/>
-          <circle cx="14" cy="14" r="3.5" stroke="#a0a0a0" stroke-width="1.3" opacity=".5"/>
-          <path d="M11.5 8a3.5 3.5 0 00-3 6" stroke="#a0a0a0" stroke-width="1.3" opacity=".7"/>
-        </svg>
-      </div>
-      <h3 class="feat-h3">Real-time collaboration</h3>
-      <p class="feat-p">See what your team is working on — no stand-up required. Live presence, activity feeds, and instant updates.</p>
+      <div class="feat-icon orange"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M10 2c0 4-4 5.5-4 9a4 4 0 008 0c0-3.5-4-5-4-9z" fill="rgba(251,146,60,.6)"/><circle cx="10" cy="14" r="1.5" fill="rgba(255,237,213,.8)"/></svg></div>
+      <div class="prem-badge">★ Premium</div>
+      <h3 class="feat-h3">Daily Streak Tracker</h3>
+      <p class="feat-p">Build momentum with daily completion streaks. Watch your longest streak grow and never break the chain.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon-box">
-        <svg viewBox="0 0 22 22" fill="none" width="16" height="16">
-          <rect x="3" y="7" width="16" height="12" rx="2.5" stroke="#909090" stroke-width="1.3" opacity=".5"/>
-          <path d="M7 7V5.5a4 4 0 018 0V7" stroke="#909090" stroke-width="1.3" opacity=".7"/>
-          <circle cx="11" cy="13" r="1.5" fill="#909090"/>
-        </svg>
-      </div>
-      <h3 class="feat-h3">Enterprise-grade security</h3>
-      <p class="feat-p">SOC 2 Type II certified with end-to-end encryption. Your data stays yours — always under your control.</p>
+      <div class="feat-icon blue"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M3 10A7 7 0 0117 10M3 10A7 7 0 0117 10M3 10h14M10 3a9 9 0 010 14M10 3a9 9 0 010 14" stroke="rgba(96,165,250,.7)" stroke-width="1.4"/></svg></div>
+      <div class="prem-badge">★ Premium</div>
+      <h3 class="feat-h3">Recurring Tasks</h3>
+      <p class="feat-p">Set tasks to repeat daily, weekly, or monthly. Complete one and the next auto-spawns — zero manual effort.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon green"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M3 5h14M3 10h10M3 15h7" stroke="rgba(74,222,128,.7)" stroke-width="1.4" stroke-linecap="round"/><path d="M15 12l2 2 3-3" stroke="rgba(74,222,128,.7)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3 class="feat-h3">Zero-friction Capture</h3>
+      <p class="feat-p">Quick-add bar always ready. Hit Enter and it's saved. No dialogs, no friction — just pure speed.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon pink"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><rect x="3" y="4" width="14" height="13" rx="2" stroke="rgba(244,114,182,.7)" stroke-width="1.4"/><path d="M7 4V2M13 4V2M3 8h14" stroke="rgba(244,114,182,.7)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+      <div class="prem-badge">★ Premium</div>
+      <h3 class="feat-h3">Due Dates & Overdue Alerts</h3>
+      <p class="feat-p">Set deadlines, get overdue warnings, and filter by "Due Today" to stay on top of what matters most right now.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon gray"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M10 2l2 5.5h5.5l-4.5 3.3 1.7 5.7L10 13.4 5.3 16.5l1.7-5.7L2.5 7.5H8z" stroke="rgba(180,180,180,.6)" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+      <h3 class="feat-h3">Priority Levels & Labels</h3>
+      <p class="feat-p">High / Medium / Low priority with Work, Personal, Urgent, Health, and Finance labels to organise everything visually.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon purple"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M4 4h12v9a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" stroke="rgba(167,139,250,.7)" stroke-width="1.4"/><path d="M8 8h4M8 11h2" stroke="rgba(167,139,250,.7)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+      <div class="prem-badge">★ Premium</div>
+      <h3 class="feat-h3">Rich Markdown Notes</h3>
+      <p class="feat-p">Write full markdown inside any task — headings, lists, code blocks, bold, links. Your notes rendered beautifully.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon orange"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M3 16V6l7-4 7 4v10M8 16v-5h4v5" stroke="rgba(251,146,60,.7)" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+      <div class="prem-badge">★ Premium</div>
+      <h3 class="feat-h3">Productivity Analytics</h3>
+      <p class="feat-p">14-day completion charts, label breakdowns, priority distribution, and weekly completion rates — all in one dashboard.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon blue"><svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M7 9l3 3 3-3" stroke="rgba(96,165,250,.7)" stroke-width="1.4" stroke-linecap="round"/><path d="M4 6h12M4 10h8M4 14h5" stroke="rgba(96,165,250,.6)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+      <h3 class="feat-h3">Subtasks & Checklists</h3>
+      <p class="feat-p">Break any task into checklist items. Mini progress bars show you exactly how close you are to done.</p>
     </div>
   </div>
 </section>
 
-<!-- Stats -->
-<section class="stats-bar" id="stats">
-  <div class="stat"><div class="stat-v">50K+</div><div class="stat-l">Teams</div></div>
-  <div class="stat"><div class="stat-v">98%</div><div class="stat-l">Satisfaction</div></div>
-  <div class="stat"><div class="stat-v">99.9%</div><div class="stat-l">Uptime</div></div>
-  <div class="stat"><div class="stat-v">4.9★</div><div class="stat-l">Rating</div></div>
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <p class="eyebrow" style="text-align:center">How it works</p>
+  <h2 class="sec-title">Up and running in <span class="platinum">60 seconds.</span></h2>
+  <p class="sec-sub">No onboarding nonsense. Just sign up and go.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num active">1</div>
+      <div class="step-h">Create your account</div>
+      <p class="step-p">Sign up free in seconds. No credit card, no setup wizard, no friction.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-h">Add your first task</div>
+      <p class="step-p">Type in the quick-add bar, press Enter. AI instantly suggests priority and label.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-h">Ship everything</div>
+      <p class="step-p">Filter, sort, check off. Watch your streak grow and analytics fill up.</p>
+    </div>
+  </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="cta">
-  <h2 class="section-title">Ready to ship <span class="platinum-text">faster?</span></h2>
-  <p class="section-sub">Join 50,000+ teams who have already made the switch. Free forever for individuals.</p>
-  <a href="/signup/" class="btn-primary" id="bottom-cta">Create Free Account &rarr;</a>
+<!-- TESTIMONIALS -->
+<section class="test-section">
+  <p class="eyebrow" style="text-align:center">What people say</p>
+  <h2 class="sec-title" style="margin-bottom:40px">Trusted by <span class="platinum">real people.</span></h2>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      </div>
+      <p class="test-quote">"The AI suggestion feature is genuinely magical. I type a task title and it already knows it's high priority work. Saves me so much mental overhead."</p>
+      <div class="test-author">
+        <div class="test-av">AK</div>
+        <div><div class="test-name">Arjun K.</div><div class="test-role">Product Manager, Bangalore</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      </div>
+      <p class="test-quote">"I've tried every todo app out there. Doable is the first one that actually made me more productive. The streak tracker is weirdly addictive."</p>
+      <div class="test-author">
+        <div class="test-av">SR</div>
+        <div><div class="test-name">Sneha R.</div><div class="test-role">Freelance Designer, Mumbai</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4z"/></svg>
+      </div>
+      <p class="test-quote">"Analytics page is insane. I can finally see which days I'm most productive and which labels I neglect. Changed how I plan my week completely."</p>
+      <div class="test-author">
+        <div class="test-av">RV</div>
+        <div><div class="test-name">Rohan V.</div><div class="test-role">Software Engineer, Pune</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Footer -->
+<!-- PRICING -->
+<section class="price-section" id="pricing">
+  <p class="eyebrow" style="text-align:center">Pricing</p>
+  <h2 class="sec-title">Simple, honest <span class="platinum">pricing.</span></h2>
+  <p class="sec-sub" style="margin-bottom:40px">No hidden fees. No dark patterns. Cancel anytime.</p>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-name">Free</div>
+      <div class="price-amt"><span>$</span>0</div>
+      <div class="price-per">forever free</div>
+      <div class="price-divider"></div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Unlimited tasks</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority & labels</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Subtasks & checklists</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Search & filters</div>
+      <div class="price-feature"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 3l8 8M11 3L3 11" stroke="rgba(150,150,150,.3)" stroke-width="1.4" stroke-linecap="round"/></svg> AI suggestions</div>
+      <div class="price-feature"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 3l8 8M11 3L3 11" stroke="rgba(150,150,150,.3)" stroke-width="1.4" stroke-linecap="round"/></svg> Analytics dashboard</div>
+      <div class="price-feature"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 3l8 8M11 3L3 11" stroke="rgba(150,150,150,.3)" stroke-width="1.4" stroke-linecap="round"/></svg> Recurring tasks</div>
+      <a href="{% url 'signup' %}" class="price-btn free">Get started free</a>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-tag">★ MOST POPULAR</div>
+      <div class="price-name">Pro</div>
+      <div class="price-amt"><span>$</span>7</div>
+      <div class="price-per">per month, billed annually</div>
+      <div class="price-divider"></div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(167,139,250,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Everything in Free</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(167,139,250,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> AI smart suggestions</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(167,139,250,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Analytics dashboard</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(167,139,250,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Recurring tasks</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(167,139,250,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Streak tracker</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(167,139,250,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Markdown rich notes</div>
+      <a href="{% url 'signup' %}" class="price-btn pro">Start Pro free trial</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Team</div>
+      <div class="price-amt"><span>$</span>19</div>
+      <div class="price-per">per seat / month</div>
+      <div class="price-divider"></div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Everything in Pro</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Shared workspaces</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Team analytics</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority support</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Admin controls</div>
+      <div class="price-feature on"><svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7l3.5 3.5L12 4" stroke="rgba(74,222,128,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> SOC 2 compliance</div>
+      <a href="{% url 'signup' %}" class="price-btn free">Contact sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <p class="eyebrow" style="text-align:center">FAQ</p>
+  <h2 class="sec-title" style="margin-bottom:36px">Common <span class="platinum">questions.</span></h2>
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-q">Is Doable really free?<div class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="9" height="9"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+    <div class="faq-a">Yes — the free tier includes unlimited tasks, priority levels, labels, subtasks, search, and filters. No credit card required. Premium features like AI suggestions, analytics, and recurring tasks are part of the Pro plan.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-q">How does the AI suggestion work?<div class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="9" height="9"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+    <div class="faq-a">As you type a task title, Claude AI analyses your words and suggests the most appropriate priority level, label category, and due date. You can apply the suggestion in one click or ignore it — you're always in control.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-q">What happens when a recurring task is completed?<div class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="9" height="9"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+    <div class="faq-a">When you check off a recurring task, Doable automatically creates the next occurrence with the correct due date (tomorrow, next week, or next month depending on your setting). You never need to recreate it manually.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-q">Can I export my data?<div class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="9" height="9"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+    <div class="faq-a">Yes. Pro users can export all tasks to CSV at any time from the analytics page. Your data is always yours and you can take it anywhere.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-q">How does the streak tracker work?<div class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="9" height="9"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div></div>
+    <div class="faq-a">Every day you complete at least one task, your streak count increases. Miss a day and the streak resets. Your longest streak is saved forever as your personal best. It's a simple but powerful motivator to stay consistent.</div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <h2 class="cta-title">Stop planning.<br/><span class="platinum">Start shipping.</span></h2>
+  <p class="cta-sub">Join 50,000+ people who use Doable every day to get more done. Free forever for individuals.</p>
+  <div class="cta-actions">
+    <a href="{% url 'signup' %}" class="btn-primary">Create free account &rarr;</a>
+    <a href="{% url 'login' %}" class="btn-secondary">Sign in</a>
+  </div>
+  <p class="cta-note">No credit card required &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; Cancel anytime</p>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
-  &copy; 2026 Doable. Built for teams that refuse to settle.
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-name">Doable</span>
+      <p>The premium AI-powered task manager for people who refuse to settle for ordinary.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="{% url 'signup' %}">Sign up</a>
+      <a href="{% url 'login' %}">Sign in</a>
+    </div>
+    <div class="footer-col">
+      <h4>Features</h4>
+      <a href="#">AI Suggestions</a>
+      <a href="#">Analytics</a>
+      <a href="#">Recurring Tasks</a>
+      <a href="#">Streak Tracker</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Doable. Built for people who get things done.</span>
+    <span>Made with &#9829; using Django &amp; Claude AI</span>
+  </div>
 </footer>
 
+<script>
+  function toggleFaq(el){
+    const wasOpen=el.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)el.classList.add('open');
+  }
+  /* Animate demo tasks */
+  let di=0;
+  const tasks=document.querySelectorAll('.demo-task');
+  setInterval(()=>{
+    tasks.forEach(t=>t.classList.remove('active'));
+    tasks[di%tasks.length].classList.add('active');
+    di++;
+  },2200);
+</script>
 </body>
 </html>
